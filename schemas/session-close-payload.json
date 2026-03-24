@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/forgesworn/payment-methods/schemas/session-close-payload.json",
+  "title": "Session Close Payload",
+  "description": "Credential payload for the 'session' intent close action.",
+  "type": "object",
+  "required": ["action", "sessionId", "preimage"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "const": "close"
+    },
+    "sessionId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Session ID."
+    },
+    "preimage": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Deposit preimage."
+    }
+  },
+  "additionalProperties": false
+}

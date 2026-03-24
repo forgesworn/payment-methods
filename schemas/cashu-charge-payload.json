@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/forgesworn/payment-methods/schemas/cashu-charge-payload.json",
+  "title": "Cashu Charge Payload",
+  "description": "Credential payload schema for the 'cashu' payment method (charge intent).",
+  "type": "object",
+  "required": ["token"],
+  "properties": {
+    "token": {
+      "type": "string",
+      "pattern": "^cashu[AB]",
+      "description": "Cashu token string (NUT-00 v4 format)."
+    }
+  },
+  "additionalProperties": false
+}

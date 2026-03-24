@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/forgesworn/payment-methods/schemas/session-bearer-payload.json",
+  "title": "Session Bearer Payload",
+  "description": "Credential payload for the 'session' intent bearer action.",
+  "type": "object",
+  "required": ["action", "sessionId", "preimage"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "const": "bearer"
+    },
+    "sessionId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Session ID (= payment hash of deposit invoice)."
+    },
+    "preimage": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Deposit preimage (bearer token)."
+    }
+  },
+  "additionalProperties": false
+}

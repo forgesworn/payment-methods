@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/forgesworn/payment-methods/schemas/session-topup-payload.json",
+  "title": "Session Top-up Payload",
+  "description": "Credential payload for the 'session' intent topUp action.",
+  "type": "object",
+  "required": ["action", "sessionId", "topUpPreimage"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "const": "topUp"
+    },
+    "sessionId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Session ID."
+    },
+    "topUpPreimage": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Preimage of the top-up invoice."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/forgesworn/payment-methods/schemas/session-open-payload.json",
+  "title": "Session Open Payload",
+  "description": "Credential payload for the 'session' intent open action.",
+  "type": "object",
+  "required": ["action", "preimage"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "const": "open"
+    },
+    "preimage": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Deposit invoice preimage (64-character lowercase hex)."
+    },
+    "returnInvoice": {
+      "type": "string",
+      "description": "Amountless BOLT11 invoice for refunds. Required when requireReturnInvoice is true."
+    }
+  },
+  "additionalProperties": false
+}

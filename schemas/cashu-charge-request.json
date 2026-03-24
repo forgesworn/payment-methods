@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/forgesworn/payment-methods/schemas/cashu-charge-request.json",
+  "title": "Cashu Charge Request",
+  "description": "Challenge request schema for the 'cashu' payment method (charge intent).",
+  "type": "object",
+  "required": ["amount", "currency", "methodDetails"],
+  "properties": {
+    "amount": {
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "description": "Amount in the smallest unit of currency."
+    },
+    "currency": {
+      "type": "string",
+      "enum": ["sat", "usd", "eur"],
+      "description": "Currency code. Must correspond to a Cashu NUT-00 unit."
+    },
+    "methodDetails": {
+      "type": "object",
+      "required": ["mints"],
+      "properties": {
+        "mints": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri" },
+          "minItems": 1,
+          "description": "Accepted Cashu mint URLs."
+        },
+        "keysetIds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Accepted keyset IDs. When absent, any active keyset is valid."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

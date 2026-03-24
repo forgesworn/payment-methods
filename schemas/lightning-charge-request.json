@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/forgesworn/payment-methods/schemas/lightning-charge-request.json",
+  "title": "Lightning Charge Request",
+  "description": "Challenge request schema for the 'lightning' payment method (charge intent).",
+  "type": "object",
+  "required": ["amount", "currency", "methodDetails"],
+  "properties": {
+    "amount": {
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "description": "Amount in the smallest unit of currency (satoshis)."
+    },
+    "currency": {
+      "type": "string",
+      "enum": ["sat"],
+      "description": "Currency code. Must be 'sat' (satoshis)."
+    },
+    "methodDetails": {
+      "type": "object",
+      "required": ["invoice", "paymentHash", "network"],
+      "properties": {
+        "invoice": {
+          "type": "string",
+          "pattern": "^lnbc",
+          "description": "BOLT11 payment request string."
+        },
+        "paymentHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 payment hash (64-character lowercase hex)."
+        },
+        "network": {
+          "type": "string",
+          "enum": ["mainnet", "testnet", "signet", "regtest"],
+          "description": "Lightning network identifier."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

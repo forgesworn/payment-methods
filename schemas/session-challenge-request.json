@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/forgesworn/payment-methods/schemas/session-challenge-request.json",
+  "title": "Session Challenge Request",
+  "description": "Challenge request schema for the 'session' intent.",
+  "type": "object",
+  "required": ["amount", "currency", "methodDetails"],
+  "properties": {
+    "amount": {
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "description": "Deposit amount in the smallest unit of currency."
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code (e.g. 'sat')."
+    },
+    "methodDetails": {
+      "type": "object",
+      "required": ["depositInvoice", "paymentHash", "network", "sessionTtlSeconds", "requireReturnInvoice"],
+      "properties": {
+        "depositInvoice": {
+          "type": "string",
+          "pattern": "^lnbc",
+          "description": "BOLT11 invoice for the deposit payment."
+        },
+        "paymentHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 payment hash of the deposit invoice."
+        },
+        "network": {
+          "type": "string",
+          "enum": ["mainnet", "testnet", "signet", "regtest"],
+          "description": "Lightning network identifier."
+        },
+        "sessionTtlSeconds": {
+          "type": "integer",
+          "minimum": 60,
+          "description": "Session lifetime in seconds."
+        },
+        "requireReturnInvoice": {
+          "type": "boolean",
+          "description": "Whether a return invoice is required for refunds."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

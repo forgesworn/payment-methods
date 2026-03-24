@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/forgesworn/payment-methods/schemas/lightning-charge-payload.json",
+  "title": "Lightning Charge Payload",
+  "description": "Credential payload schema for the 'lightning' payment method (charge intent).",
+  "type": "object",
+  "required": ["preimage"],
+  "properties": {
+    "preimage": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Lightning payment preimage (64-character lowercase hex)."
+    }
+  },
+  "additionalProperties": false
+}
