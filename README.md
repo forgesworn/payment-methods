@@ -10,6 +10,7 @@ The IETF draft defines a payment-method-agnostic `WWW-Authenticate: Payment` cha
 |------------|----------|---------------|--------|
 | `lightning` | Payment Methods | [lightning.md](lightning.md) | Proposed |
 | `cashu` | Payment Methods | [cashu.md](cashu.md) | Proposed |
+| `lnurlcash` | Payment Methods | [lnurlcash.md](lnurlcash.md) | Proposed |
 | `session` | Payment Intents | [session.md](session.md) | Proposed |
 
 ### Lightning
@@ -19,6 +20,10 @@ Pay with the Bitcoin Lightning Network. The server issues a BOLT11 invoice; the 
 ### Cashu
 
 Pay with [Cashu](https://cashu.space) ecash tokens. The strongest privacy of any payment method — blind signatures mean the mint cannot link payer to payment. The server swaps token proofs at the mint for atomic verification and double-spend prevention.
+
+### LNURLcash
+
+Pay with a [LUD-25](https://github.com/lnurl/luds) bearer note. A note is a URL carrying a secret, so value moves by moving the URL: into a header, a QR code, an NFC tag. The server rotates the note at the mint, and that single call is the verification, the double-spend check and the transfer of ownership at once.
 
 ### Session
 
@@ -59,6 +64,8 @@ Machine-readable schemas for all wire formats are in [`schemas/`](schemas/).
 | [`lightning-charge-payload.json`](schemas/lightning-charge-payload.json) | Lightning credential payload |
 | [`cashu-charge-request.json`](schemas/cashu-charge-request.json) | Cashu challenge request |
 | [`cashu-charge-payload.json`](schemas/cashu-charge-payload.json) | Cashu credential payload |
+| [`lnurlcash-charge-request.json`](schemas/lnurlcash-charge-request.json) | LNURLcash challenge request |
+| [`lnurlcash-charge-payload.json`](schemas/lnurlcash-charge-payload.json) | LNURLcash credential payload |
 | [`session-challenge-request.json`](schemas/session-challenge-request.json) | Session challenge request |
 | [`session-open-payload.json`](schemas/session-open-payload.json) | Session open payload |
 | [`session-bearer-payload.json`](schemas/session-bearer-payload.json) | Session bearer payload |
@@ -69,7 +76,7 @@ Machine-readable schemas for all wire formats are in [`schemas/`](schemas/).
 
 | Implementation | Language | Methods | Intents |
 |----------------|----------|---------|---------|
-| [@forgesworn/toll-booth](https://github.com/forgesworn/toll-booth) | TypeScript | `lightning` (charge), `cashu` (adapted) | `session` (planned) |
+| [@forgesworn/toll-booth](https://github.com/forgesworn/toll-booth) | TypeScript | `lightning` (charge), `cashu` (adapted), `lnurlcash` (adapted) | `session` (planned) |
 | [Aperture PR #220](https://github.com/lightninglabs/aperture/pull/220) | Go | `lightning` (charge) | `session` (implemented) |
 
 ### Live Demo
@@ -92,6 +99,7 @@ curl -s -D - https://satgate.trotters.dev/v1/chat/completions \
 | [L402](https://docs.lightning.engineering/the-lightning-network/l402) | Lightning Labs' macaroon-based HTTP 402 protocol. Complementary — L402 uses reusable bearer tokens; IETF Payment is per-request. |
 | [x402](https://www.x402.org/) | Coinbase's stablecoin payment protocol. Alternative payment method that could be registered in the same IETF registry. |
 | [Cashu NUTs](https://github.com/cashubtc/nuts) | Cashu protocol specifications. Referenced by the `cashu` payment method. |
+| [LUD-25](https://github.com/lnurl/luds) | LNURLcash bearer notes. Referenced by the `lnurlcash` payment method. |
 | [BOLT11](https://github.com/lightning/bolts/blob/master/11-payment-encoding.md) | Lightning invoice format. Used by the `lightning` method and `session` intent. |
 
 ## Contributing
@@ -102,7 +110,7 @@ These specifications are open for review and feedback. Please [open an issue](ht
 
 1. **Current:** GitHub specifications (this repository)
 2. **Next:** Submit as IETF Internet-Drafts via [datatracker.ietf.org](https://datatracker.ietf.org)
-3. **Goal:** IANA registration of `lightning`, `cashu`, and `session` identifiers
+3. **Goal:** IANA registration of `lightning`, `cashu`, `lnurlcash`, and `session` identifiers
 
 ## Licence
 
