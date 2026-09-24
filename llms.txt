@@ -1,0 +1,44 @@
+# Payment Methods & Intents for HTTP Payment Authentication
+
+> HTTP's `402 Payment Required` has no standard way to describe how to pay.
+> This repository defines concrete payment method and intent specifications
+> for the IETF `draft-ryan-httpauth-payment` scheme, which adds a
+> payment-method-agnostic `WWW-Authenticate: Payment` challenge-response flow
+> to HTTP, plus two IANA registries: HTTP Payment Methods and HTTP Payment
+> Intents.
+
+It is for implementers building or integrating HTTP-native payment flows
+(servers issuing 402 challenges, clients paying them) who need a concrete,
+machine-checkable wire format rather than inventing their own. Each method or
+intent below is a Markdown specification plus a matching JSON Schema pair.
+
+## Getting Started
+
+Read the specification for the method or intent you need, then validate
+requests and payloads against its schema:
+
+- [lightning.md](lightning.md): pay a BOLT11 invoice, prove it with the preimage
+- [cashu.md](cashu.md): pay with Cashu ecash tokens
+- [lnurlcash.md](lnurlcash.md): pay with a LUD-25 bearer note
+- [session.md](session.md): deposit-based prepaid access with top-up and refund
+
+## Key Concepts
+
+- **Payment method**: a way to move value for a single request (`lightning`, `cashu`, `lnurlcash`).
+- **Payment intent**: a pattern for how a method is used across a sequence of requests (`session`).
+- **Challenge**: the server's `WWW-Authenticate: Payment` response naming a method, intent and request-specific details.
+- **Credential**: the client's `Authorization: Payment` proof of payment, verified by the server against the challenge.
+
+## API Surface
+
+There is no code API: this is a specification repository. The interface is
+the wire format defined by the JSON Schemas in [`schemas/`](schemas/), one
+challenge-request/credential-payload pair per method or intent (for example
+`schemas/lightning-charge-request.json` and
+`schemas/lightning-charge-payload.json`).
+
+## Optional
+
+- [README.md](README.md): registry table, how-it-works flow, relationship to L402 and x402
+- [SECURITY.md](SECURITY.md): security policy
+- [@forgesworn/toll-booth](https://github.com/forgesworn/toll-booth): TypeScript reference implementation
